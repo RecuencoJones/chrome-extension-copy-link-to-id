@@ -1,27 +1,27 @@
 let contextElement = null;
 
 function flashSuccessMessage() {
-  const div = document.createElement('div');
-  const span = document.createElement('span');
+  const notificationContainer = document.createElement('div');
+  const notification = document.createElement('span');
 
-  div.style.display = 'flex';
-  div.style.placeContent = 'center';
-  div.style.position = 'fixed';
-  div.style.top = 0;
-  div.style.left = 0;
-  div.style.right = 0;
-  span.style.fontFamily = 'Avenir,Helvetica,Arial,sans-serif';
-  span.style.padding = '.5rem 1rem';
-  span.style.background = '#68cd86';
-  span.style.color = '#ffffff';
-  span.style.borderLeft = '.25rem solid #42a85f';
-  span.textContent = 'Copied!';
+  notificationContainer.style.display = 'flex';
+  notificationContainer.style.placeContent = 'center';
+  notificationContainer.style.position = 'fixed';
+  notificationContainer.style.top = 0;
+  notificationContainer.style.left = 0;
+  notificationContainer.style.right = 0;
+  notification.style.fontFamily = 'Avenir,Helvetica,Arial,sans-serif';
+  notification.style.padding = '.5rem 1rem';
+  notification.style.background = '#68cd86';
+  notification.style.color = '#ffffff';
+  notification.style.borderLeft = '.25rem solid #42a85f';
+  notification.textContent = 'Copied!';
 
-  div.appendChild(span);
-  document.body.appendChild(div);
+  notificationContainer.appendChild(notification);
+  document.body.appendChild(notificationContainer);
 
   setTimeout(() => {
-    document.body.removeChild(div);
+    document.body.removeChild(notificationContainer);
   }, 1000);
 }
 
@@ -30,7 +30,7 @@ window.addEventListener('contextmenu', (event) => {
 }, true);
 
 chrome.runtime.onMessage.addListener((request) => {
-  if (request == 'copyAnchorToContextElement' && contextElement && contextElement.id) {
+  if (request == 'copyAnchorToContextElement' && contextElement?.id) {
     const url = new URL(window.location.href);
 
     url.hash = contextElement.id;
